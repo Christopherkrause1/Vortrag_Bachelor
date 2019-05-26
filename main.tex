@@ -63,7 +63,7 @@
 \end{frame}
 
 \begin{frame}{Theoretische Grundlage: Das Hamburg Modell}
-  Die Änderung der Dotierungskonzentration bei annealing wird durch 3 Terme beschrieben:
+  Die Änderung der Dotierungskonzentration beim annealing wird durch 3 Terme beschrieben:
   \medskip
   \begin{itemize}
     \item Stable damage:\: $N_{\mathrm{C}}(\Phi_{\mathrm{eq}}) = N_{\mathrm{C0}}[1-\exp{(-c \cdot \Phi_{\mathrm{eq}})}] + g_{\mathrm{c}} \cdot \Phi_{\mathrm{eq}}$
@@ -93,22 +93,25 @@
 \begin{frame}{Dotierungskonzentration für konstante Temperatur}
   \begin{figure}
       \includegraphics[width=0.55\textwidth]{images/annealing.PDF}
-  \caption{$\Delta N_{eff}$ einer WE-25k Diode nach Bestrahlung mit Fluenz $\Phi_{\mathrm{eq}} = \SI{5e15}{\per\centi\meter\squared}$}
+  \caption{$\Delta N_{eff}$ einer WE-25k Diode nach Bestrahlung mit Fluenz $\Phi_{\mathrm{eq}} = \SI{5e15}{\per\centi\meter\squared}.$}
   \end{figure}
 \end{frame}
 
 \begin{frame}{Schadensrate für konstante Temperatur}
   \begin{figure}
       \includegraphics[width=0.55\textwidth]{images/damage.PDF}
-  \caption{Schadensrate einer WE-25k Diode}
+  \caption{Schadensrate einer WE-25k Diode.}
   \end{figure}
 \end{frame}
 
 
 \begin{frame}{Dotierungskonzentration für eine Temperaturkurve}
+  \begin{itemize}
+    \item Aufgenommene Temperaturkurve des Sensors R1 in Sandia
+  \end{itemize}
   \begin{figure}
-      \includegraphics[width=0.55\textwidth]{images/ohnekorrektur.PDF}
-  \caption{Dotierungskonzentration bei gleicher Fluenz und nicht konstanter Temperatur}
+      \includegraphics[width=0.5\textwidth]{images/ohnekorrektur.PDF}
+  \caption{Dotierungskonzentration bei gleicher Fluenz und nicht konstanter Temperatur.}
   \end{figure}
 \end{frame}
 
@@ -140,7 +143,7 @@
   \begin{figure}
       \subfigure[]{\includegraphics[width=0.49\textwidth]{images/ohnekorrektur.PDF}}
       \subfigure[]{\includegraphics[width=0.49\textwidth]{images/annealingtdata.PDF}}
-  \caption{$\Delta N_{eff}$ des Sensors R1 ohne (a) und mit (b) Korrektur nach einer Bestrahlung mit Fluenz $\Phi_{\mathrm{eq}} = \SI{5e15}{\per\centi\meter\squared}.$}
+  \caption{$\Delta N_{eff}$ des Sensors R1 ohne Korrektur (a) und mit Korrektur (b) nach einer Bestrahlung mit Fluenz $\Phi_{\mathrm{eq}} = \SI{5e15}{\per\centi\meter\squared}.$}
   \end{figure}
 \end{frame}
 
@@ -160,7 +163,52 @@
   \begin{figure}
         \subfigure[]{\includegraphics[width=0.49\textwidth]{images/damageohnekorrektur.PDF}}
         \subfigure[]{\includegraphics[width=0.49\textwidth]{images/damagekorrektur.PDF}}
-  \caption{Schadensrate des Sensors R1 ohne (a) und mit (b) Korrektur}
+  \caption{Schadensrate des Sensors R1 ohne Korrektur (a) und mit Korrektur (b).}
   \end{figure}
 \end{frame}
+
+
+\begin{frame}{Interpolation der Daten}
+  Auftrendes Problem: Große Zeitabstände zwischen Messwerten führen zu Ungenauigkeiten
+  \medskip
+
+  $\rightarrow$ Lineare Interpolation der Temperaturkurve
+  \medskip
+  \begin{itemize}
+    \item Anzahl $n$ der Intervalle der linearen Interpolation zwischen den Zeiten $t_{\mathrm{A}}$ und $t_{\mathrm{B}}$ :
+    \begin{align*}
+      n = \lceil{y \cdot (T_{\mathrm{A}}-T_{\mathrm{min}})+ z}\rceil
+    \end{align*}
+
+    \item Interpolierte Zeit und Temperatur:
+    \begin{align*}
+      t_x &= t_{\mathrm{A}} + \frac{t_{\mathrm{B}}-t_{\mathrm{A}}}{n} \cdot x \\
+      T_x &= T_{\mathrm{A}} + \frac{T_{\mathrm{B}}-T_{\mathrm{A}}}{n} \cdot x \\
+    \end{align*}
+    \center{Mit $x$ von $1$ bis $n$}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Interpolierte Temperatur}
+  \begin{figure}
+      \includegraphics[width=0.55\textwidth]{images/interpolationtemperatur.PDF}
+  \caption{Interpolierte Temperatur mit Parametern $y=0.05$, $z=0.2^\circ$C.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Interpolation der Dotierungskonzentration}
+  \begin{figure}
+      \includegraphics[width=0.55\textwidth]{images/interpolationtdata.PDF}
+  \caption{Interpolierte Temperatur und $\Delta N_{\mathrm{eff}}$.}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}{Interpolation der Schadensrate}
+  \begin{figure}
+      \includegraphics[width=0.55\textwidth]{images/damageinterpolation.PDF}
+  \caption{Interpolierte Temperatur und Schadensrate.}
+  \end{figure}
+\end{frame}
+
 \end{document}
