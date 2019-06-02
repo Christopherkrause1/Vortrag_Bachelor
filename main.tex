@@ -183,10 +183,9 @@
 
     \item Interpolierte Zeit und Temperatur:
     \begin{align*}
-      t_x &= t_{\mathrm{A}} + \frac{t_{\mathrm{B}}-t_{\mathrm{A}}}{n} \cdot x \\
-      T_x &= T_{\mathrm{A}} + \frac{T_{\mathrm{B}}-T_{\mathrm{A}}}{n} \cdot x \\
+      t_n &= t_{\mathrm{A}} + \sum_{i=1}^{n} \frac{t_{\mathrm{B}}-t_{\mathrm{A}}}{n} \cdot i \\
+      T_n &= T_{\mathrm{A}} + \sum_{i=1}^{n} \frac{T_{\mathrm{B}}-T_{\mathrm{A}}}{n} \cdot i \\
     \end{align*}
-    \center{Mit $x$ von $1$ bis $n$}
   \end{itemize}
 \end{frame}
 
@@ -223,5 +222,39 @@
   \end{figure}
 \end{frame}
 
+\begin{frame}{Abweichungen}
+  \begin{itemize}
+    \item Parameter der Funktion entsprechen nicht den Parametern des Sensors
+    \medskip
+    \item Veränderung der Temperatur zwischen Messungen nicht berücksichtigt
+    \medskip
+    \item Messwerte unterliegen Unsicherheiten
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Interface}
+  \begin{itemize}
+    \item Erstellung eines Interfaces für schnelle Berechnungen von $N_{\mathrm{eff}}$ und $\alpha$
+    \item Modellierung für beliebige Annealingzeiten, Fluenzen und konstante Temperaturen
+  \end{itemize}
+  \begin{figure}
+      \includegraphics[width=0.53\textwidth]{images/interface.PNG}
+  \caption{Interface zur Berechnung von $N_{\mathrm{eff}}$ und $\alpha$.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Interface Beispiel: Dotierungskonzentration}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{images/interface_n_eff.PNG}
+    \caption{Beispiel Plot von $N_{\mathrm{eff}}$ mit $t = \SI{10e5}{\minute}$, $\Phi_{\mathrm{eq}}= \SI{5e-15}{\per\centi\meter\squared}$}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Interface Beispiel: Schadensrate}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{images/interface_damage.PNG}
+    \caption{Beispiel Plot von $\alpha$ mit $t = \SI{10e5}{\minute}$}
+  \end{figure}
+\end{frame}
 
 \end{document}
