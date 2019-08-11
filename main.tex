@@ -1,4 +1,5 @@
 % This example is meant to be compiled with lualatex or xelatex
+
 % The theme itself also supports pdflatex
 \PassOptionsToPackage{unicode}{hyperref}
 \documentclass[aspectratio=1610, 9pt]{beamer}
@@ -61,7 +62,74 @@
   \end{itemize}
 \end{frame}
 
-%Eine Slide hier: Wobei hift das Thema -> Sensoren halten länger durch
+
+\begin{frame}{Motivation}
+  \begin{itemize}
+    \item Siliziumdetektoren finden unter anderem in Hochenergiephysik Verwendung
+    \medskip
+    \item Werden für Bestimmung von Ladung und Impuls in Experimenten wie ATLAS benötigt
+      \begin{itemize}
+        \item Pixeldetektoren im Inner Tracker
+        \item Streifendetektoren im Semiconductor Tracker
+      \end{itemize}
+    \medskip
+    \item Hervorgerufene Strahlenschäden durch Detektion von Teilchen führt zur Beschädigung des Detektors
+      \begin{itemize}
+        \item Erhöhung des Leckstromes
+        \item Änderung der effektiven Dotierungskonzentration
+      \end{itemize}
+    \medskip
+    \item Für lange Lebenszeit der Detektoren ist Untersuchung der Strahlenschäden und
+          deren Behebung wichtig
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Strahlenschäden}
+  \begin{itemize}
+    \item Entstehen durch Wechselwirkung von einfallenden Teilchen mit Detektormaterial
+    \medskip
+    \item Über Ionisation abgegeben Energie führt zu keinen Schäden im Detektor
+    \medskip
+    \item Streuung der Strahlung an Atomkernen im Bulk führt zu Defekten
+      \begin{itemize}
+        \item Atomkern wird aus Gitter herausgeschlagen $\rightarrow$ Zwischengitteratom
+        \item Fehlendes Atom im Gitter $\rightarrow$ Leerstelle
+      \end{itemize}
+    \medskip
+    \item Defekte führen zu Änderung der effektiven Dotierungskonzentration
+    \medskip
+    \item Generation von Ladungsträger an Defekten führt zu größerem Leckstrom
+  \end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Annealing}
+  \begin{itemize}
+    \item Beschreibt durch Erhitzung hervorgerufene Änderungen von Materialeigenschaften
+    \medskip
+    \item Durch annealing von Defekten können verschiedene Effekte aufteten
+      \begin{itemize}
+        \item Migration: Für hohe Temperaturen wandern Zwischengitteratome durch Gitter und
+        können Leerstellen füllen
+        \medskip
+        \item Komplexformation: Mehrere Zwischengitteratome können sich durch Migration Gruppieren und Komplexe formen
+        \medskip
+        \item Komplexe und Fehlstellen können bei hohen Temperaturen dissozieren, wodurch einzelne Bestandteile durch das Gitter wandern
+      \end{itemize}
+    \medskip
+    \item Manche Komplexe sind stabil und werden durch annealing nicht beeinflusst
+  \end{itemize}
+\end{frame}
+
+
+
+
+
+
 
 \begin{frame}{Theoretische Grundlage: Das Hamburg Modell}
   Die Änderung der Dotierungskonzentration beim annealing wird durch 3 Terme beschrieben:
@@ -106,7 +174,7 @@
 \end{frame}
 
 
-\begin{frame}{Dotierungskonzentration für eine Temperaturkurve}
+\begin{frame}{Analoge Berechnung für eine Temperaturkurve}
   \begin{itemize}
     \item Aufgenommene Temperaturkurve des Sensors R1 in Sandia
   \end{itemize}
@@ -178,21 +246,22 @@
   \begin{itemize}
     \item Anzahl $n$ der Intervalle der linearen Interpolation zwischen den Zeiten $t_{\mathrm{A}}$ und $t_{\mathrm{B}}$ :
     \begin{align*}
-      n = \lceil{y \cdot (T_{\mathrm{A}}-T_{\mathrm{min}})+ z}\rceil
+      n = \left\lceil y \cdot \frac{T_{\mathrm{i}}-T_{\mathrm{i+1}}}{T_{\mathrm{max}}-T_{\mathrm{i}}+ z_1}+z_2 \right\rceil
     \end{align*}
 
-    \item Interpolierte Zeit und Temperatur:
+    \item Interpolierte Zeit und Temperatur zwischen $t_{\mathrm{A}}$ und $t_{\mathrm{B}}$:
     \begin{align*}
-      t_n &= t_{\mathrm{A}} + \sum_{i=1}^{n} \frac{t_{\mathrm{B}}-t_{\mathrm{A}}}{n} \cdot i \\
-      T_n &= T_{\mathrm{A}} + \sum_{i=1}^{n} \frac{T_{\mathrm{B}}-T_{\mathrm{A}}}{n} \cdot i \\
+      t_i &= t_{\mathrm{A}} +  \frac{t_{\mathrm{B}}-t_{\mathrm{A}}}{n} \cdot i \\
+      T_i &= T_{\mathrm{A}} +  \frac{T_{\mathrm{B}}-T_{\mathrm{A}}}{n} \cdot i \\
+      i &= 1, 2, ..., n
     \end{align*}
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Interpolierte Temperatur}
   \begin{figure}
-      \includegraphics[width=0.55\textwidth]{images/interpolationtemperatur.PDF}
-  \caption{Interpolierte Temperatur mit Parametern $y=0.05$, $z=0.2^\circ$C.}
+      \includegraphics[width=0.55\textwidth]{images/interpolation_steps.PDF}
+  \caption{Interpolierte Temperatur mit Parametern $y=15$, $z_1=5^\circ$C und $z_2 = 0.2$.}
   \end{figure}
 \end{frame}
 
@@ -252,7 +321,7 @@
 \begin{frame}{Interface Beispiel: Dotierungskonzentration}
   \begin{figure}
     \includegraphics[width=0.9\textwidth]{images/interface_n_eff.PNG}
-    \caption{Beispiel Plot von $N_{\mathrm{eff}}$ mit $t = \SI{10e5}{\minute}$, $\Phi_{\mathrm{eq}}= \SI{5e-15}{\per\centi\meter\squared}$}
+    \caption{Beispiel Plot von $N_{\mathrm{eff}}$ mit $t = \SI{10e5}{\minute}$, $\Phi_{\mathrm{eq}}= \SI{5e15}{\per\centi\meter\squared}$}
   \end{figure}
 \end{frame}
 
