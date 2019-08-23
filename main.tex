@@ -7,7 +7,7 @@
 % Load packages you need here
 \usepackage{polyglossia}
 \setmainlanguage{german}
-
+\usepackage[font=small,labelfont=bf]{caption}
 \usepackage{csquotes}
 \usepackage{siunitx}
 \usepackage{subfigure}
@@ -44,23 +44,7 @@
 
 \maketitle
 
-\begin{frame}{Ziel der Bachelorarbeit}
-  Für beliebige Zeiten, Temperaturverläufe, Fluenzen und Materialeigenschaften:
-  \begin{itemize}
-    \item Berechnung der Dotierungskonzentration $\Delta N_{\mathrm{eff}}$
-    \item Berechnung der Schadensrate $\alpha$
-  \end{itemize}
-  \medskip
 
-  Zusätzliche Aufgaben:
-  \begin{itemize}
-    \item Interpolation der Daten für mehr und genauere Werte
-    \item Erstellung eines Interfaces zur schnellen Berechnung von $\Delta N_{\mathrm{eff}}$ und $\alpha$
-    für konstante Temperaturen
-    \item Zusammenfügen von Datendateien und Anpassung der zugehörigen Zeiten
-    \item Gesamte Annealinghistorie einer Diode berechnen
-  \end{itemize}
-\end{frame}
 
 
 \begin{frame}{Motivation}
@@ -90,7 +74,7 @@
   \begin{itemize}
     \item Entstehen durch Wechselwirkung von einfallenden Teilchen mit Detektormaterial
     \medskip
-    \item Über Ionisation abgegeben Energie führt zu keinen Schäden im Detektor
+    \item Über Ionisation abgegebene Energie führt zu keinen Schäden im Detektor
     \medskip
     \item Streuung der Strahlung an Atomkernen im Bulk führt zu Defekten
       \begin{itemize}
@@ -126,7 +110,23 @@
 \end{frame}
 
 
+\begin{frame}{Ziel der Bachelorarbeit}
+  Für beliebige Zeiten, Temperaturverläufe, Fluenzen und Materialeigenschaften:
+  \begin{itemize}
+    \item Berechnung der Dotierungskonzentration $\Delta N_{\mathrm{eff}}$
+    \item Berechnung der Schadensrate $\alpha$
+  \end{itemize}
+  \medskip
 
+  Zusätzliche Aufgaben:
+  \begin{itemize}
+    \item Interpolation der Daten für mehr und genauere Werte
+    \item Erstellung eines Interfaces zur schnellen Berechnung von $\Delta N_{\mathrm{eff}}$ und $\alpha$
+    für konstante Temperaturen
+    \item Zusammenfügen von Datendateien und Anpassung der zugehörigen Zeiten
+    \item Gesamte Annealinghistorie einer Diode berechnen
+  \end{itemize}
+\end{frame}
 
 
 
@@ -135,28 +135,41 @@
   Die Änderung der Dotierungskonzentration beim annealing wird durch 3 Terme beschrieben:
   \medskip
   \begin{itemize}
-    \item Stable damage:\: $N_{\mathrm{C}}(\Phi_{\mathrm{eq}}) = N_{\mathrm{C0}}[1-\exp{(-c \cdot \Phi_{\mathrm{eq}})}] + g_{\mathrm{c}} \cdot \Phi_{\mathrm{eq}}$
+    \item Stable damage:\: $N_{\mathrm{C}}(\Phi_{\mathrm{eq}}) = \underbrace{ N_{\mathrm{C0}}[1-\exp{(-c \cdot \Phi_{\mathrm{eq}})}] }_{\text{Entfernung von Donatoren}} + \underbrace{ g_{\mathrm{c}} \cdot \Phi_{\mathrm{eq}} }_{\text{stabile Defekte}}$
     \medskip
-    \item Shortterm annealing:\: $N_{\mathrm{A}}(t, \Phi_{\mathrm{eq}}, T)= \Phi_{\mathrm{eq}} \cdot g_{\mathrm{a}} \cdot \exp{(-\frac{t}{\tau_{\mathrm{a}}})}$
+    \item Shortterm annealing:\: $N_{\mathrm{A}}(t, \Phi_{\mathrm{eq}}, T)= \underbrace{ \Phi_{\mathrm{eq}} \cdot g_{\mathrm{a}} \cdot \exp{(-\frac{t}{\tau_{\mathrm{a}}})} }_{\text{Annealing von Akzeptoren}}$
     \medskip
-    \item Longterm annealing:\: $N_{\mathrm{Y}}(t, \Phi_{\mathrm{eq}}, T)= \Phi_{\mathrm{eq}} \cdot g_{\mathrm{Y}} \cdot \left(1-\frac{1}{1+\frac{t}{\tau_{\mathrm{Y}}}}\right)$
+    \item Longterm annealing:\: $N_{\mathrm{Y}}(t, \Phi_{\mathrm{eq}}, T)= \underbrace{\Phi_{\mathrm{eq}} \cdot g_{\mathrm{Y}} \cdot \left(1-\frac{1}{1+\frac{t}{\tau_{\mathrm{Y}}}}\right)}_{\text{Einführung von Akzeptoren}}$
     \medskip
+
     \item   $\Delta N_{\mathrm{eff}} = N_{\mathrm{C}}(\Phi_{\mathrm{eq}}) + N_{\mathrm{A}}(t, \Phi_{\mathrm{eq}}, T) + N_{\mathrm{Y}}(t, \Phi_{\mathrm{eq}}, T)$
   \end{itemize}
+  \hfill
+  \begin{minipage}[b]{0.35\linewidth}
+    \vspace{-3cm} \hspace{-1.5cm}
+  \includegraphics[height=12\baselineskip]{images/n_eff_beispiel.png}
+  \captionof{figure}{$\Delta N_{\mathrm{eff}}$ für eine Fluenz von $1,4\cdot 10^{13} \, \mathrm{n_{eq}/cm^2}$.}
+  \end{minipage}
 \end{frame}
 
 \begin{frame}{Theoretische Grundlage: Das Hamburg Modell}
+  Durch Strahlung hervorgerufener Leckstrom: \:$\Delta I = \alpha \Phi_{\mathrm{eq}} \cdot V $ \\
+  \medskip
   Die Schadensrate wird bei annealing durch 2 Terme beschrieben:
   \medskip
   \begin{itemize}
-    \item Shortterm annealing:\: $\alpha_I \cdot \exp{\left(-\frac{t}{\tau_{\mathrm{I}}(T)}\right)}$
+    \item Shortterm annealing:\: $\underbrace{\alpha_I \cdot \exp{\left(-\frac{t}{\tau_{\mathrm{I}}(T)}\right)}}_{\text{Annealing von Akzeptoren}}$
     \medskip
-    \item Longterm annealing:\: $\alpha_{\mathrm{0}}^{*} -\beta \cdot \ln{\left(\Theta(T) \cdot \frac{t}{t_{\mathrm{0}}}\right)}$, \:\:\: mit \: $\Theta(T) = \frac{E_{\mathrm{I}}^*}{k_b} \exp{\left(-\frac{1}{T}-\frac{1}{T_{\mathrm{ref}}}\right)}$
+    \item Longterm annealing:\: $\underbrace{\alpha_{\mathrm{0}}^{*} -\beta \cdot \ln{\left(\Theta(T) \cdot \frac{t}{t_{\mathrm{0}}}\right)}}_{\text{Physikalisches Modell unklar}}$, \:\:\: mit \: $\Theta(T) = \frac{E_{\mathrm{I}}^*}{k_b} \exp{\left(-\frac{1}{T}-\frac{1}{T_{\mathrm{ref}}}\right)}$
     \medskip
     \item $\alpha(t, T) = \alpha_I \cdot \exp{\left(-\frac{t}{\tau_{\mathrm{I}}(T)}\right)} + \alpha_{\mathrm{0}}^{*} -\beta \cdot \ln{\left(\Theta(T) \cdot \frac{t}{t_{\mathrm{0}}}\right)}$
   \end{itemize}
   \medskip
-
+  \hfill
+  \begin{minipage}[b]{0.35\linewidth}
+    \vspace{-1cm} \hspace{-2cm}
+  \includegraphics[height=11\baselineskip]{images/schadensraten.png}
+  \end{minipage}
 \end{frame}
 
 \begin{frame}{Dotierungskonzentration für konstante Temperatur}
@@ -321,14 +334,14 @@
 
 \begin{frame}{Interface Beispiel: Dotierungskonzentration}
   \begin{figure}
-    \includegraphics[width=0.9\textwidth]{images/interface_n_eff.PDF}
+    \includegraphics[width=0.55\textwidth]{images/interface_n_eff.PDF}
     \caption{Beispiel Plot von $N_{\mathrm{eff}}$ mit $t = \SI{10e5}{\minute}$, $\Phi_{\mathrm{eq}}= \SI{5e15}{\per\centi\meter\squared}$}
   \end{figure}
 \end{frame}
 
 \begin{frame}{Interface Beispiel: Schadensrate}
   \begin{figure}
-    \includegraphics[width=0.9\textwidth]{images/interface_damage.PDF}
+    \includegraphics[width=0.55\textwidth]{images/interface_damage.PDF}
     \caption{Beispiel Plot von $\alpha$ mit $t = \SI{10e5}{\minute}$}
   \end{figure}
 \end{frame}
