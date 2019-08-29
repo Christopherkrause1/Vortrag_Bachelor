@@ -37,7 +37,7 @@
 \title{Entwicklung eines Programmes zur Berechnung von Annealingeffekten in bestrahltem Silizium nach dem Hamburger Modell}
 \author[C.~Krause]{Christopher Krause}
 \institute[E4]{Experimentelle Physik \\ Fakultät Physik}
-\titlegraphic{\includegraphics[width=0.7\textwidth]{images/tudo-title-2.jpg}}
+\titlegraphic{\includegraphics[width=0.67\textwidth]{images/tudo-title-2.jpg}}
 
 
 \begin{document}
@@ -85,6 +85,8 @@
     \item Defekte führen zu Änderung der effektiven Dotierungskonzentration
     \medskip
     \item Generation von Ladungsträger an Defekten führt zu größerem Leckstrom
+    \medskip
+    \item Fluenzen werden auf NIEL einer 1 MeV Neuntronenstrahlung skaliert und haben die Einheit $ [\Phi_{\mathrm{eq}}] = n_{\mathrm{eq}} /cm^2$
   \end{itemize}
 \end{frame}
 
@@ -173,6 +175,7 @@
 \end{frame}
 
 \begin{frame}{Dotierungskonzentration für konstante Temperatur}
+  Verifikation der korrekten Implementierung der Funktionen:
   \begin{figure}
       \includegraphics[width=0.55\textwidth]{images/annealing.PDF}
   \caption{$\Delta N_{\mathrm{eff}}$ einer WE-25k Diode nach einer Bestrahlung mit einer Fluenz von
@@ -200,7 +203,7 @@
 
 \begin{frame}{Korrekturansatz}
   \begin{itemize}
-    \item longterm annealing weist klare Abweichung vom eigentlichen Verhalten auf
+    \item Longterm annealing weist klare Abweichung vom eigentlichen Verhalten auf
     \medskip
     \item vorherige Temperaturänderungen werden vernachlässigt
     \medskip
@@ -212,7 +215,7 @@
 
   Ansatz: Über den Zeitraum $t_{\mathrm{i}} - t_{\mathrm{i-1}}$ wird mit der Temperatur $\frac{T_{\mathrm{i}} +T_{\mathrm{i-1}}}{2}$ erhitzt.
 
-  Für den shortterm annealingeffekt gilt beispielsweise:
+  Für den Shortterm Annealingeffekt gilt beispielsweise:
   \begin{align*}
     &\frac{t_{\mathrm{n}}}{\tau_{\mathrm{a}}(T_{\mathrm{n}})} \rightarrow \sum_{i=0}^n  \frac{t_{\mathrm{i}} - t_{\mathrm{i-1}}}{\tau_{\mathrm{a}}(\frac{T_{\mathrm{i}} +T_{\mathrm{i-1}}}{2})} \:\:\:\: \text{für} \: n>0 \\
     \\
@@ -298,11 +301,15 @@
   \begin{itemize}
     \item Darstellung einer gesamten Annealinghistorie eines Sensors durch Verknüpfung aller Daten
   \end{itemize}
-
   \begin{figure}
-      \includegraphics[width=0.53\textwidth]{images/damage_P_3.PDF}
-  \caption{Theoretische und gemessene Schadensrate.}
+      \subfigure[]{\includegraphics[width=0.48\textwidth]{images/temp.PDF}}
+      \subfigure[]{\includegraphics[width=0.48\textwidth]{images/damage_P_3.PDF}}
+      \caption{Temperaturkurve von einem Zyklus (a), sowie theoretische und gemessene Schadensrate (b).}
   \end{figure}
+%  \begin{figure}
+%      \includegraphics[width=0.53\textwidth]{images/damage_P_3.PDF}
+
+%  \end{figure}
 \end{frame}
 
 \begin{frame}{Abweichungen}
@@ -316,7 +323,7 @@
     \begin{itemize}
       \item Volumen des Sensormaterials
       \medskip
-      \item Leckstrom
+      \item Temperaturskalierung des Leckstroms
     \end{itemize}
   \end{itemize}
 \end{frame}
